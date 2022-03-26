@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import QuotesList from "./QuotesList";
-import QuotesForm from "./QuotesForm";
+import AddQuote from "./AddQuote";
 
 const QuotesContainer = (props) => {
   const [quotes, setQuotes] = useState([]);
@@ -21,7 +21,7 @@ const QuotesContainer = (props) => {
 
   //callback function
   //get quotes from child item QuotesForm
-  const addQuotes = (quote) => {
+  const addQuote = (quote) => {
     // console.log("container", quote);
 
     //spreading all the quote and adding end of array
@@ -42,11 +42,31 @@ const QuotesContainer = (props) => {
     //after this useEffect hook executed
   };
 
+  const editItem = (quote) => {
+    // console.log("edit", quote);
+    const result = quotes.map((q) => {
+      if (q.id === quote.id) {
+        //
+        console.log("spread1", { ...q, ...quote });
+        // edit quote and return the quote to screen
+        return { ...q, ...quote };
+      } else {
+        console.log("spread2", { ...q });
+        return { ...q };
+      }
+    });
+    setQuotes(result);
+  };
+
   return (
     <div>
       <h3>QuoteContainer</h3>
-      <QuotesList quotes={quotes} removeQuote={removeQuote} />
-      <QuotesForm addQuotes={addQuotes} />
+      <QuotesList
+        quotes={quotes}
+        removeQuote={removeQuote}
+        editItem={editItem}
+      />
+      <AddQuote addQuote={addQuote} />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import QuotesItem from "./QuotesItem";
 
 const QuotesList = (props) => {
-  const { quotes, removeQuote } = props;
+  const { quotes, removeQuote, editItem } = props;
   return (
     <div>
       {/* conditional rendering */}
@@ -14,10 +14,15 @@ const QuotesList = (props) => {
       ) : (
         <div>
           <h1> My Quotes - {quotes.length}</h1>
-          pass
+          {/* passing each quote  */}
           {quotes.map((quote) => {
             return (
-              <QuotesItem key={quote.id} {...quote} removeQuote={removeQuote} />
+              <QuotesItem
+                key={quote.id}
+                {...quote}
+                removeQuote={removeQuote}
+                editItem={editItem}
+              />
             );
           })}
         </div>
